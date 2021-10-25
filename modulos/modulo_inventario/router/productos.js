@@ -1,0 +1,1 @@
+// archivo del mudulo inventario
