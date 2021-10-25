@@ -21,3 +21,4 @@ const conexion = require('./config/conexion');
  app.use('/API', tipo_productos); 
  //--------------------------------------------------------------------------------------------
 
+//Área para los demás participantes
