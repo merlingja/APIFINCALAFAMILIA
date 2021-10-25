@@ -57,17 +57,7 @@ routers.post('/insertar-tipo-producto', (req, res) => {
         });
 });    
 // Actualizar un producto a través del procedimiento almacenado
-/*app.put('/employees',(req,res)=>{  
-    let emp = req.body;  
-    var sql = "SET @EmpID = ?;SET @Name = ?;SET @Designation = ?;SET @City = ?;SET @ContactNo = ?; \  
-              CALL AddorUpdateEmployee(@EmpID,@Name,@Designation,@City,@ContactNo);"  
-    mysqlConnection.query(sql,[emp.EmpID,emp.Name,emp.Designation,emp.City,emp.ContactNo],(err,rows,fields)=>{  
-    if(!err)   
-    res.send("Updation Done");  
-    else  
-        console.log(err);  
-})  
-});  
+
 //exporta la ruta que tuvo actividad este archivo  */
 module.exports = routers;
 
