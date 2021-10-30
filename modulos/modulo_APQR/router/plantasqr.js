@@ -1,5 +1,5 @@
 //-----------------------Modulo AP_QR--------------------------------------
-//-------------------Creado por Merling Aguilar---------------------------------
+//-------------------Creado por Deiby Lainez---------------------------------
 const express = require('express'); 
 const plantaqr = express.Router();
 const conexion = require('../../../config/conexion');
