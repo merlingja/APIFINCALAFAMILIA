@@ -31,4 +31,8 @@ const conexion = require('./config/conexion');
 const plantasqr = require('./modulos/modulo_APQR/router/plantasqr');
  app.use('/API', plantasqr); 
 
+//-------RUTA MODULO DE CAPACITACIONES-----CARLOS AMADOR-----------------------------------------
+const talle = require('./modulos/modulo_capacitaciones/rtaller/talleres');
+ app.use('/API', talle); 
+
 //AREA PARTICIPANTES
