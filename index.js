@@ -26,8 +26,9 @@ const conexion = require('./config/conexion');
  const inven = require('./modulos/modulo_inventario/router/inventario');
  app.use('/API', inven);
  //--------------------------------------------------------------------------------------------
-/*--------RUTA MODULO DE CAPACITACIONES----------------------------------------------
-const consulta = require('./modulos/modulo_capacitaciones/talleres');
- app.use('/API', consulta); */
+//--------RUTA MODULO DE AP QR DEIBY LAINEZ----------------------------------------------
+//----Obtiene los datos del archivo plantasqr.js
+const plantasqr = require('./modulos/modulo_APQR/router/plantasqr');
+ app.use('/API', plantasqr); 
 
 //AREA PARTICIPANTES
