@@ -35,4 +35,17 @@ const plantasqr = require('./modulos/modulo_APQR/router/plantasqr');
 const talle = require('./modulos/modulo_capacitaciones/rtaller/talleres');
  app.use('/API', talle); 
 
-//AREA PARTICIPANTES
+//AREA PARTICIPANTE
+
+ //---------------------------------------------------------------------------------------------
+ //---------RUTA MODULO VENTAS fausto aguilar ---------------------------------------------
+ //----Obtiene los datos del archivo tipo_producto.js
+ const ventass = require('./modulos/modulo_ventas/rutas/venta');
+ app.use('/API', ventass);
+ //--------historial de venta-----------------------------------
+ const histo = require('./modulos/modulo_ventas/rutas/historial');
+ app.use('/API', histo);
+ //--------metodo de pago-----------------------------------
+ const metode = require('./modulos/modulo_ventas/rutas/metodo');
+ app.use('/API',metode);
+
