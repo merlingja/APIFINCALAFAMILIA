@@ -31,4 +31,21 @@ const conexion = require('./config/conexion');
 const plantasqr = require('./modulos/modulo_APQR/router/plantasqr');
  app.use('/API', plantasqr); 
 
-//AREA PARTICIPANTES
+//-------RUTA MODULO DE CAPACITACIONES-----CARLOS AMADOR-----------------------------------------
+const talle = require('./modulos/modulo_capacitaciones/rtaller/talleres');
+ app.use('/API', talle); 
+
+//AREA PARTICIPANTE
+
+ //---------------------------------------------------------------------------------------------
+ //---------RUTA MODULO VENTAS fausto aguilar ---------------------------------------------
+ //----Obtiene los datos del archivo tipo_producto.js
+ const ventass = require('./modulos/modulo_ventas/rutas/venta');
+ app.use('/API', ventass);
+ //--------historial de venta-----------------------------------
+ const histo = require('./modulos/modulo_ventas/rutas/historial');
+ app.use('/API', histo);
+ //--------metodo de pago-----------------------------------
+ const metode = require('./modulos/modulo_ventas/rutas/metodo');
+ app.use('/API',metode);
+
