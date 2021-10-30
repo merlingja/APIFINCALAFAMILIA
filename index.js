@@ -17,8 +17,17 @@ const conexion = require('./config/conexion');
 
  //---------RUTA MODULO INVENTARIO MERLING AGUILAR---------------------------------------------
  //----Obtiene los datos del archivo tipo_producto.js
-  const tipo_productos = require('./modulos/modulo_inventario/router/tipo_producto');
+ const tipo_productos = require('./modulos/modulo_inventario/router/tipo_producto');
  app.use('/API', tipo_productos); 
+ //productos.js
+ const productos = require('./modulos/modulo_inventario/router/productos');
+ app.use('/API', productos);
+ //inventario.js
+ const inven = require('./modulos/modulo_inventario/router/inventario');
+ app.use('/API', inven);
  //--------------------------------------------------------------------------------------------
+/*--------RUTA MODULO DE CAPACITACIONES----------------------------------------------
+const consulta = require('./modulos/modulo_capacitaciones/talleres');
+ app.use('/API', consulta); */
 
-//Área para los demás participantes
+//AREA PARTICIPANTES
