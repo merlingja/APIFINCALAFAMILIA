@@ -49,3 +49,10 @@ const talle = require('./modulos/modulo_capacitaciones/rtaller/talleres');
  const metode = require('./modulos/modulo_ventas/rutas/metodo');
  app.use('/API',metode);
 
+//-----RUTA MODULO SEGURIDAD EDUARDO MARTINEZ----
+ //----Obtener los datos de usuario.js
+ const USUARIO = require('./modulos/modulo_seguridad/router/usuario');
+ app.use('/API', USUARIO);
+ //-----obtiene los datos de roles.js
+ const ROLES = require('./modulos/modulo_seguridad/router/roles');
+ app.use('/API', ROLES);
