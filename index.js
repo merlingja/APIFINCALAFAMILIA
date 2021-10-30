@@ -56,3 +56,21 @@ const talle = require('./modulos/modulo_capacitaciones/rtaller/talleres');
  //-----obtiene los datos de roles.js
  const ROLES = require('./modulos/modulo_seguridad/router/roles');
  app.use('/API', ROLES);
+
+
+//--------------------------------MODULO PERSONAS PATRICIA FERRUFINO------------------------------------------------------------
+//----persona.js
+const perso = require('./modulos/modulo_personas/persona');
+app.use('/API', perso);
+//------direccion.js
+const direc = require('./modulos/modulo_personas/direccion');
+app.use('/API', direc);
+//-----correo.js
+const corr = require('./modulos/modulo_personas/correo');
+app.use('/API', corr)
+    //--------empleado.js
+const empl = require('./modulos/modulo_personas/empleado');
+app.use('/API', empl)
+    //---------telefono.js
+const tel = require('./modulos/modulo_personas/telefono');
+app.use('/API', tel)
