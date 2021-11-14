@@ -2,6 +2,10 @@
 
 const express = require('express'); 
 const app =express();
+
+const cors = require('cors');
+app.use(cors());
+
 const bodyparser = require('body-parser');
 app.use(bodyparser.urlencoded({
     extended: true
@@ -35,9 +39,7 @@ const plantasqr = require('./modulos/modulo_APQR/router/plantasqr');
 const talle = require('./modulos/modulo_capacitaciones/rtaller/talleres');
  app.use('/API', talle); 
 
-//AREA PARTICIPANTE
-
- //---------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------
  //---------RUTA MODULO VENTAS fausto aguilar ---------------------------------------------
  //----Obtiene los datos del archivo tipo_producto.js
  const ventass = require('./modulos/modulo_ventas/rutas/venta');

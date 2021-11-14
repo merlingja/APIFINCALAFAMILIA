@@ -11,8 +11,12 @@ conexion.query("call MOSTRAR_TIPOS_PRODUCTOS()", (err, result) => {
     if (err) {
         res.status(404).send({message: 'recurso no encontrado'});
     } else {
-        res.status(201).send({producto: result });  
+        //res.status(201).send({producto: result[0] });  
+        res.status(201).send(result[0]);
     }
+
+    //console.log(result)
+    
 });
 });
 
@@ -24,7 +28,8 @@ routers.get('/tipo-producto/:id',(req,res)=> {
         if (err){
             res.status(404).send({mensaje: "Error al consultar los datos"});
         } else {
-            res.status(201).send({producto: result, mensaje: "Peticion Exitosa"});
+            //res.status(201).send({producto: result, mensaje: "Peticion Exitosa"});
+            res.status(201).send(result[0]);
         }  
       
 });
@@ -38,7 +43,8 @@ routers.delete('/eliminar-tipo-producto/:id',(req,res)=>{
         if (err){
             res.status(404).send({mensaje: "Error al eliminar los datos"});
         } else {
-            res.status(201).send({producto: result, mensaje: "Eliminación de datos exitosa"});
+            //res.status(201).send({producto: result, mensaje: "Eliminación de datos exitosa"});
+            res.status(201).send(result[0]);
         }  
       
 });  
@@ -54,7 +60,8 @@ routers.post('/insertar-tipo-producto', (req, res) => {
             if (err){
                 res.status(404).send({mensaje: "Error al insertar el producto"});
             } else {
-                res.status(201).send({producto: result, mensaje: "Se inserto con exito"});
+                //res.status(201).send({producto: result, mensaje: "Se inserto con exito"});
+                res.status(201).send(result[0]);
             }
         });
 
@@ -73,6 +80,7 @@ routers.put('/actualizar-tipo-producto', (req, res) => {
                 res.status(404).send({mensaje: "Error al actualizar el producto"});
             } else {
                 res.status(201).send({producto: result, mensaje: "Se actualizo con exito"});
+                //res.status(201).send(result[0]);
             }
         });
 
