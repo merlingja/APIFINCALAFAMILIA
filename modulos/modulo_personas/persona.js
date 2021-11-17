@@ -7,9 +7,9 @@ const conexion = require('../../config/conexion');
 personas.get('/people', (req, res) => {
     conexion.query('SELECT * FROM pe_persona', (err, result) => {
         if (err) {
-            res.status(404).send({ message: 'recurso no encontrado' });
+            res.status(404).send({ message: "recurso no encontrado" });
         } else {
-            res.status(201).send({ personas: result });
+            res.status(201).send(result);
         }
     });
 });
@@ -23,68 +23,92 @@ personas.get('/peopleid/:id', (req, res) => {
             if (err) {
                 res.status(404).send({ mensaje: "Error al consultar los datos" });
             } else {
-                res.status(201).send({ resultado: result, mensaje: "Peticion Exitosa" });
+                res.status(201).send(result[0]);
             }
 
         });
 });
 
-//Borrar persona
+//borrar persona
+personas.delete('/deletepeople/:id', (req, res) => {
+    var cod_persona = req.params.id;
+    conexion.query("call BORRAR_PERSONA('" + cod_persona + "')",
+        (err, result) => {
+            if (err) {
+                res.status(404).send({ mensaje: "Error al eliminar los datos" });
+            } else {
+                res.status(201).send({ resultado: result[0], mensaje: "Se borró con éxito" });
+            }
 
-personas.delete("/deletepeople", (request, response) => {
-    const req = request.query
-    const query = "DELETE FROM pe_persona where COD_PERSONA=?;";
-    const params = [req.cod_persona]
-    conexion.query(query, params, (err, result, fields) => {
-        if (err) throw err;
+        });
+});
 
-        response.json({ delete: result.affectedRows })
 
-    });
-})
 
 
 //Insertar  persona a través el procedimiento almacenado
 personas.post('/insertarpersona', (req, res) => {
-    let cod_persona = req.body.cod_persona;
-    let id = req.body.id;
-    let primernombre = req.body.primernombre;
-    let segundonombre = req.body.segundonombre;
-    let primerapellido = req.body.primerapellido;
-    let segundoapellido = req.body.segundoapellido;
-    let sexo = req.body.sexo;
-    let estadocivil = req.body.estadocivil;
-    let edad = req.body.edad;
-    let tipo_cliente = req.body.tipo_cliente;
-    let descripcion = req.body.descripcion;
-    let usuario_add = req.body.usuario_add;
-    let fec_ingreso = req.body.fec_ingreso;
+    let COD_PERSONA = req.body.COD_PERSONA;
+    let ID = req.body.ID;
+    let PRIMERNOMBRE = req.body.PRIMERNOMBRE;
+    let SEGUNDONOMBRE = req.body.SEGUNDONOMBRE;
+    let PRIMERAPELLIDO = req.body.PRIMERAPELLIDO;
+    let SEGUNDOAPELLIDO = req.body.SEGUNDOAPELLIDO;
+    let SEXO = req.body.SEXO;
+    let ESTADOCIVIL = req.body.ESTADOCIVIL;
+    let EDAD = req.body.EDAD;
+    let TIPO_CLIENTE = req.body.TIPO_CLIENTE;
+    let DESCRIPCION = req.body.DESCRIPCION;
+    let USUARIO_ADD = req.body.USUARIO_ADD;
+    let FEC_INGRESO = req.body.FEC_INGRESO;
 
-    conexion.query("call INS_PEOPLE('" + cod_persona + "', '" + id + "','" + primernombre + "', '" + segundonombre + "','" + primerapellido + "','" + segundoapellido +
-        "','" + sexo + "', '" + estadocivil + "','" + edad + "','" + tipo_cliente + "','" + descripcion + "','" + usuario_add + "','" + fec_ingreso + "')",
+    conexion.query("call INS_PEOPLE('" + COD_PERSONA + "', '" + ID + "','" + PRIMERNOMBRE + "', '" + SEGUNDONOMBRE + "','" +
+        PRIMERAPELLIDO + "','" + SEGUNDOAPELLIDO +
+        "','" + SEXO + "', '" + ESTADOCIVIL + "','" + EDAD + "','" + TIPO_CLIENTE + "','" +
+        DESCRIPCION + "','" + USUARIO_ADD + "','" + FEC_INGRESO + "')",
         (err, result) => {
             if (err) {
                 res.status(404).send({ mensaje: "Error al insertar persona" });
             } else {
-                res.status(201).send({ resultado: result, mensaje: "Se inserto con exito" });
+                res.status(201).send({ resultado: result[0], mensaje: "Se insertó con éxito" });
             }
         });
 
 });
 
 // actualizar PERSONA
-personas.put('/actualizarpersona', (req, res) => {
-    let cod_persona = req.body.cod_persona;
-    conexion.query("call ACT_PERSONA ('" + cod_persona + "')",
-        (err, resultado) => {
+personas.put('/actpersona', (req, res) => {
+    let COD_PERSONA = req.body.COD_PERSONA;
+    let ID = req.body.ID;
+    let PRIMERNOMBRE = req.body.PRIMERNOMBRE;
+    let SEGUNDONOMBRE = req.body.SEGUNDONOMBRE;
+    let PRIMERAPELLIDO = req.body.PRIMERAPELLIDO;
+    let SEGUNDOAPELLIDO = req.body.SEGUNDOAPELLIDO;
+    let SEXO = req.body.SEXO;
+    let ESTADOCIVIL = req.body.ESTADOCIVIL;
+    let EDAD = req.body.EDAD;
+    let TIPO_CLIENTE = req.body.TIPO_CLIENTE;
+    let DESCRIPCION = req.body.DESCRIPCION;
+    let USUARIO_ADD = req.body.USUARIO_ADD;
+    let FEC_INGRESO = req.body.FEC_INGRESO;
+
+    conexion.query("call ACT_PERSONA('" + COD_PERSONA + "', '" + ID + "','" + PRIMERNOMBRE + "', '" + SEGUNDONOMBRE + "','" +
+        PRIMERAPELLIDO + "','" + SEGUNDOAPELLIDO +
+        "','" + SEXO + "', '" + ESTADOCIVIL + "','" + EDAD + "','" + TIPO_CLIENTE + "','" +
+        DESCRIPCION + "','" + USUARIO_ADD + "','" + FEC_INGRESO + "')",
+        (err, result) => {
             if (err) {
-                res.status(404).send({ mensaje: "Error al actualizar en Personas" });
+                res.status(404).send({ mensaje: "Error al actualizar persona" });
             } else {
-                res.status(201).send({ persona: result, mensaje: "Se actualizo con exito" });
+                res.status(201).send({ resultado: result[0], mensaje: "Se actualizó con éxito" });
             }
         });
 
 });
+
+
+
+
 
 
 module.exports = personas;
