@@ -7,9 +7,9 @@ const conexion = require('../../config/conexion');
 address.get('/direccion', (req, res) => {
     conexion.query('SELECT * FROM pe_direccion', (err, result) => {
         if (err) {
-            res.status(404).send({ message: 'recurso no encontrado' });
+            res.status(404).send({ message: "recurso no encontrado" });
         } else {
-            res.status(201).send({ direccion: result });
+            res.status(201).send(result);
         }
     });
 });
@@ -17,12 +17,12 @@ address.get('/direccion', (req, res) => {
 //Buscar direccion por id
 address.get('/direccionid/:id', (req, res) => {
     var cod_direccion = req.params.id;
-    conexion.query("call MOSTRAR_ADDRESS('" + cod_direccion + "')",
+    conexion.query("call MOSTRAR_DIRECCION('" + cod_direccion + "')",
         (err, result) => {
             if (err) {
                 res.status(404).send({ mensaje: "Error al consultar los datos" });
             } else {
-                res.status(201).send({ resultado: result, mensaje: "Peticion Exitosa" });
+                res.status(201).send(result[0]);
             }
 
         });
@@ -30,49 +30,57 @@ address.get('/direccionid/:id', (req, res) => {
 
 //Borrar direccion
 
-address.delete("/deletedir", (request, response) => {
-    const req = request.query
-    const query = "DELETE FROM pe_direccion where COD_DIRECCION=?;";
-    const params = [req.cod_direccion]
-    conexion.query(query, params, (err, result, fields) => {
-        if (err) throw err;
+address.delete('/deletedir/:id', (req, res) => {
+    var cod_direccion = req.params.id;
+    conexion.query("call BORRAR_DIRECCION('" + cod_direccion + "')",
+        (err, result) => {
+            if (err) {
+                res.status(404).send({ mensaje: "Error al eliminar los datos" });
+            } else {
+                res.status(201).send({ resultado: result[0], mensaje: "Se borró con éxito" });
+            }
 
-        response.json({ delete: result.affectedRows })
-
-    });
-})
+        });
+});
 
 
 //Insertar direccion a través el procedimiento almacenado
 address.post('/insertardir', (req, res) => {
-    let cod_direccion = req.body.cod_direccion;
-    let departamento = req.body.departamento;
-    let municipio = req.body.municipio;
-    let ciudad = req.body.ciudad;
-    let colonia = req.body.colonia;
-    let tipo_direccion = req.body.tipo_direccion;
+    let COD_DIRECCION = req.body.COD_DIRECCION;
+    let DEPARTAMENTO = req.body.DEPARTAMENTO;
+    let MUNICIPIO = req.body.MUNICIPIO;
+    let CIUDAD = req.body.CIUDAD;
+    let COLONIA = req.body.COLONIA;
+    let TIPO_DIRECCION = req.body.TIPO_DIRECCION;
 
-    conexion.query("call INS_PEOPLE('" + cod_direccion + "', '" + departamento + "','" + municipio + "', '" + ciudad +
-        "','" + colonia + "', '" + tipo_direccion + "')",
+    conexion.query("call INS_DIRECCION('" + COD_DIRECCION + "', '" + DEPARTAMENTO + "','" + MUNICIPIO + "', '" + CIUDAD +
+        "','" + COLONIA + "', '" + TIPO_DIRECCION + "')",
         (err, result) => {
             if (err) {
                 res.status(404).send({ mensaje: "Error al insertar direccion" });
             } else {
-                res.status(201).send({ resultado: result, mensaje: "Se inserto con exito" });
+                res.status(201).send({ resultado: result[0], mensaje: "Se insertó con éxito" });
             }
         });
 
 });
 
 // actualizar DIRECCION
-address.put('/actualizardir', (req, res) => {
-    let cod_direccion = req.body.cod_direccion;
-    conexion.query("call ACT_DIRECCION ('" + cod_direccion + "')",
-        (err, resultado) => {
+address.put('/actdireccion', (req, res) => {
+    let COD_DIRECCION = req.body.COD_DIRECCION;
+    let DEPARTAMENTO = req.body.DEPARTAMENTO;
+    let MUNICIPIO = req.body.MUNICIPIO;
+    let CIUDAD = req.body.CIUDAD;
+    let COLONIA = req.body.COLONIA;
+    let TIPO_DIRECCION = req.body.TIPO_DIRECCION;
+
+    conexion.query("call ACT_DIRECCION('" + COD_DIRECCION + "', '" + DEPARTAMENTO + "','" + MUNICIPIO + "', '" + CIUDAD +
+        "','" + COLONIA + "', '" + TIPO_DIRECCION + "')",
+        (err, result) => {
             if (err) {
-                res.status(404).send({ mensaje: "Error al actualizar en Direcciones" });
+                res.status(404).send({ mensaje: "Error al insertar persona" });
             } else {
-                res.status(201).send({ persona: result, mensaje: "Se actualizo con exito" });
+                res.status(201).send({ resultado: result[0], mensaje: "Se actualizó con éxito" });
             }
         });
 

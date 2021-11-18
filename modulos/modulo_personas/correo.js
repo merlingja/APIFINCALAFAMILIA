@@ -7,7 +7,7 @@ const conexion = require('../../config/conexion');
 email.get('/correo', (req, res) => {
     conexion.query('SELECT * FROM pe_correo', (err, result) => {
         if (err) {
-            res.status(404).send({ message: 'recurso no encontrado' });
+            res.status(404).send({ message: "recurso no encontrado" });
         } else {
             res.status(201).send(result);
         }

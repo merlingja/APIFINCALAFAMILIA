@@ -7,7 +7,7 @@ const conexion = require('../../config/conexion');
 telephone.get('/telefono', (req, res) => {
     conexion.query('SELECT * FROM pe_telefono', (err, result) => {
         if (err) {
-            res.status(404).send({ message: 'recurso no encontrado' });
+            res.status(404).send({ message: "recurso no encontrado" });
         } else {
             res.status(201).send(result);
         }
