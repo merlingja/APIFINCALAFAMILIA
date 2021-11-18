@@ -9,7 +9,7 @@ email.get('/correo', (req, res) => {
         if (err) {
             res.status(404).send({ message: 'recurso no encontrado' });
         } else {
-            res.status(201).send({ correo: result });
+            res.status(201).send(result);
         }
     });
 });
@@ -17,12 +17,12 @@ email.get('/correo', (req, res) => {
 //Buscar CORREO por id
 email.get('/correoid/:id', (req, res) => {
     var cod_correo = req.params.id;
-    conexion.query("call MOSTRAR_EMAIL('" + cod_correo + "')",
+    conexion.query("call MOSTRAR_CORREO('" + cod_correo + "')",
         (err, result) => {
             if (err) {
                 res.status(404).send({ mensaje: "Error al consultar los datos" });
             } else {
-                res.status(201).send({ resultado: result, mensaje: "Peticion Exitosa" });
+                res.status(201).send(result[0]);
             }
 
         });
@@ -30,30 +30,32 @@ email.get('/correoid/:id', (req, res) => {
 
 //Borrar correo
 
-email.delete("/deletemail", (request, response) => {
-    const req = request.query
-    const query = "DELETE FROM pe_correo where COD_CORREO=?;";
-    const params = [req.cod_correo]
-    conexion.query(query, params, (err, result, fields) => {
-        if (err) throw err;
-
-        response.json({ delete: result.affectedRows })
-
-    });
-})
-
-//Insertar correo a través el procedimiento almacenado
-email.post('/insertaremail', (req, res) => {
-    let cod_correo = req.body.cod_correo;
-    let usuariocorreo = req.body.usuariocorreo;
-    let tipo_correo = req.body.tipo_correo;
-
-    conexion.query("call INS_PEOPLE('" + cod_correo + "', '" + usuariocorreo + "','" + tipo_correo + "')",
+email.delete('/deletecorreo/:id', (req, res) => {
+    var cod_correo = req.params.id;
+    conexion.query("call BORRAR_CORREO('" + cod_correo + "')",
         (err, result) => {
             if (err) {
-                res.status(404).send({ mensaje: "Error al insertar correo" });
+                res.status(404).send({ mensaje: "Error al eliminar los datos" });
             } else {
-                res.status(201).send({ resultado: result, mensaje: "Se inserto con exito" });
+                res.status(201).send({ resultado: result[0], mensaje: "Se borró con exito" });
+            }
+
+        });
+});
+
+
+//Insertar  correo a través el procedimiento almacenado
+email.post('/insertaremail', (req, res) => {
+    let COD_CORREO = req.body.COD_CORREO;
+    let USUARIOCORREO = req.body.USUARIOCORREO;
+    let TIPO_CORREO = req.body.TIPO_CORREO;
+
+    conexion.query("call INS_CORREO('" + COD_CORREO + "', '" + USUARIOCORREO + "','" + TIPO_CORREO + "')",
+        (err, result) => {
+            if (err) {
+                res.status(404).send({ mensaje: "Error al insertar persona" });
+            } else {
+                res.status(201).send({ resultado: result[0], mensaje: "Se insertó con exito" });
             }
         });
 
@@ -61,13 +63,16 @@ email.post('/insertaremail', (req, res) => {
 
 // actualizar correo
 email.put('/actemail', (req, res) => {
-    let cod_correo = req.body.cod_correo;
-    conexion.query("call ACT_CORREO ('" + cod_correo + "')",
-        (err, resultado) => {
+    let COD_CORREO = req.body.COD_CORREO;
+    let USUARIOCORREO = req.body.USUARIOCORREO;
+    let TIPO_CORREO = req.body.TIPO_CORREO;
+
+    conexion.query("call ACT_CORREO('" + COD_CORREO + "', '" + USUARIOCORREO + "','" + TIPO_CORREO + "')",
+        (err, result) => {
             if (err) {
-                res.status(404).send({ mensaje: "Error al actualizar en CORREO" });
+                res.status(404).send({ mensaje: "Error al insertar persona" });
             } else {
-                res.status(201).send({ persona: result, mensaje: "Se actualizo con exito" });
+                res.status(201).send({ resultado: result[0], mensaje: "Se actualizó con exito" });
             }
         });
 
