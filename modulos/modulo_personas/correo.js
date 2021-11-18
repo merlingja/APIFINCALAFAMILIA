@@ -37,7 +37,7 @@ email.delete('/deletecorreo/:id', (req, res) => {
             if (err) {
                 res.status(404).send({ mensaje: "Error al eliminar los datos" });
             } else {
-                res.status(201).send({ resultado: result[0], mensaje: "Se borró con exito" });
+                res.status(201).send({ resultado: result[0], mensaje: "Se borró con éxito" });
             }
 
         });
@@ -55,7 +55,7 @@ email.post('/insertaremail', (req, res) => {
             if (err) {
                 res.status(404).send({ mensaje: "Error al insertar persona" });
             } else {
-                res.status(201).send({ resultado: result[0], mensaje: "Se insertó con exito" });
+                res.status(201).send({ resultado: result[0], mensaje: "Se insertó con éxito" });
             }
         });
 
@@ -72,7 +72,7 @@ email.put('/actemail', (req, res) => {
             if (err) {
                 res.status(404).send({ mensaje: "Error al insertar persona" });
             } else {
-                res.status(201).send({ resultado: result[0], mensaje: "Se actualizó con exito" });
+                res.status(201).send({ resultado: result[0], mensaje: "Se actualizó con éxito" });
             }
         });
 

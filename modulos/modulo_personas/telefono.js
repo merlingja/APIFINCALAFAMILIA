@@ -9,7 +9,7 @@ telephone.get('/telefono', (req, res) => {
         if (err) {
             res.status(404).send({ message: 'recurso no encontrado' });
         } else {
-            res.status(201).send({ telefono: result });
+            res.status(201).send(result);
         }
     });
 });
@@ -22,7 +22,7 @@ telephone.get('/telefono/:id', (req, res) => {
             if (err) {
                 res.status(404).send({ mensaje: "Error al consultar los datos" });
             } else {
-                res.status(201).send({ resultado: result, mensaje: "Peticion Exitosa" });
+                res.status(201).send(result[0]);
             }
 
         });
@@ -30,31 +30,33 @@ telephone.get('/telefono/:id', (req, res) => {
 
 //Borrar telefono
 
-telephone.delete("/deletephone", (request, response) => {
-    const req = request.query
-    const query = "DELETE FROM pe_telefono where COD_TELEFONO=?;";
-    const params = [req.cod_telefono]
-    conexion.query(query, params, (err, result, fields) => {
-        if (err) throw err;
+telephone.delete('/deletetel/:id', (req, res) => {
+    var cod_telefono = req.params.id;
+    conexion.query("call BORRAR_TELEFONO('" + cod_telefono + "')",
+        (err, result) => {
+            if (err) {
+                res.status(404).send({ mensaje: "Error al eliminar los datos" });
+            } else {
+                res.status(201).send({ resultado: result[0], mensaje: "Se borró con éxito" });
+            }
 
-        response.json({ delete: result.affectedRows })
+        });
+});
 
-    });
-})
 
 
 //Insertar telefono a través el procedimiento almacenado
 telephone.post('/insertarphone', (req, res) => {
-    let cod_telefono = req.body.cod_telefono;
-    let num_telefono = req.body.num_telefono;
-    let tipo_telefono = req.body.tipo_telefono;
+    let COD_TELEFONO = req.body.COD_TELEFONO;
+    let NUM_TELEFONO = req.body.NUM_TELEFONO;
+    let TIPO_NUMERO = req.body.TIPO_NUMERO;
 
-    conexion.query("call INS_TELEFONO('" + cod_telefono + "', '" + num_telefono + "','" + tipo_telefono + "')",
+    conexion.query("call INS_TELEFONO('" + COD_TELEFONO + "', '" + NUM_TELEFONO + "','" + TIPO_NUMERO + "')",
         (err, result) => {
             if (err) {
                 res.status(404).send({ mensaje: "Error al insertar telefono" });
             } else {
-                res.status(201).send({ resultado: result, mensaje: "Se inserto con exito" });
+                res.status(201).send({ resultado: result[0], mensaje: "Se insertó con éxito" });
             }
         });
 
@@ -63,15 +65,20 @@ telephone.post('/insertarphone', (req, res) => {
 
 // actualizar telefono
 telephone.put('/actphone', (req, res) => {
-    let cod_telefono = req.body.cod_telefono;
-    conexion.query("call ACT_TELEFONO ('" + cod_telefono + "')",
-        (err, resultado) => {
+    let COD_TELEFONO = req.body.COD_TELEFONO;
+    let NUM_TELEFONO = req.body.NUM_TELEFONO;
+    let TIPO_NUMERO = req.body.TIPO_NUMERO;
+
+    conexion.query("call ACT_TELEFONO('" + COD_TELEFONO + "', '" + NUM_TELEFONO + "','" + TIPO_NUMERO + "')",
+        (err, result) => {
             if (err) {
-                res.status(404).send({ mensaje: "Error al actualizar en TELEFONO" });
+                res.status(404).send({ mensaje: "Error al insertar persona" });
             } else {
-                res.status(201).send({ persona: result, mensaje: "Se actualizo con exito" });
+                res.status(201).send({ resultado: result[0], mensaje: "Se actualizó con éxito" });
             }
         });
 
 });
+
+
 module.exports = telephone;
