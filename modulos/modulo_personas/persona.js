@@ -5,11 +5,11 @@ const conexion = require('../../config/conexion');
 
 //----Obtiene todos los datos
 personas.get('/people', (req, res) => {
-    conexion.query('SELECT * FROM pe_persona', (err, result) => {
+    conexion.query("call MOSTRAR_TODASPERSONA", (err, result) => {
         if (err) {
-            res.status(404).send({ message: "recurso no encontrado" });
+            res.status(404).send({ message: 'recurso no encontrado' });
         } else {
-            res.status(201).send(result);
+            res.status(201).send(result[0]);
         }
     });
 });
