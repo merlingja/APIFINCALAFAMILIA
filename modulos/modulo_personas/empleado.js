@@ -37,7 +37,7 @@ employee.delete("/deleteemp/:id", (req, res) => {
             if (err) {
                 res.status(404).send({ mensaje: "Error al eliminar los datos" });
             } else {
-                res.status(201).send({ resultado: result[0], mensaje: "Se borró con éxito" });
+                res.status(201).send(result[0]);
             }
 
         });
@@ -52,14 +52,12 @@ employee.post('/insertarempl', (req, res) => {
     let DIRECCION = req.body.DIRECCION;
     let CONTACTO = req.body.CONTACTO;
     let FEC_INICIO = req.body.FEC_INICIO;
-    let FEC_SALIDA = req.body.FEC_SALIDA;
-    let USUARIO_ADD = req.body.USUARIO_ADD;
     let FEC_INGRESO = req.body.FEC_INGRESO;
     let APELLIDOS = req.body.APELLIDOS;
     let NOMBRES = req.body.NOMBRES;
 
     conexion.query("call INS_EMPLEADO('" + COD_EMPLEADO + "', '" + DNI + "','" + DESIGNACION + "', '" + SUELDO +
-        "','" + DIRECCION + "', '" + CONTACTO + "', '" + FEC_INICIO + "', '" + FEC_SALIDA + "', '" + USUARIO_ADD + "', '" + FEC_INGRESO + "', '" + APELLIDOS + "', '" + NOMBRES + "')",
+        "','" + DIRECCION + "', '" + CONTACTO + "', '" + FEC_INICIO + "', '" + FEC_INGRESO + "', '" + APELLIDOS + "', '" + NOMBRES + "')",
         (err, result) => {
             if (err) {
                 res.status(404).send({ mensaje: "Error al insertar Empleado" });
@@ -79,14 +77,12 @@ employee.put('/actemployee', (req, res) => {
     let DIRECCION = req.body.DIRECCION;
     let CONTACTO = req.body.CONTACTO;
     let FEC_INICIO = req.body.FEC_INICIO;
-    let FEC_SALIDA = req.body.FEC_SALIDA;
-    let USUARIO_ADD = req.body.USUARIO_ADD;
     let FEC_INGRESO = req.body.FEC_INGRESO;
     let APELLIDOS = req.body.APELLIDOS;
     let NOMBRES = req.body.NOMBRES;
 
     conexion.query("call ACT_EMPLEADO('" + COD_EMPLEADO + "', '" + DNI + "','" + DESIGNACION + "', '" + SUELDO +
-        "','" + DIRECCION + "', '" + CONTACTO + "', '" + FEC_INICIO + "', '" + FEC_SALIDA + "', '" + USUARIO_ADD + "', '" + FEC_INGRESO + "', '" + APELLIDOS + "', '" + NOMBRES + "')",
+        "','" + DIRECCION + "', '" + CONTACTO + "', '" + FEC_INICIO + "', '" + FEC_INGRESO + "', '" + APELLIDOS + "', '" + NOMBRES + "')",
         (err, result) => {
             if (err) {
                 res.status(404).send({ mensaje: "Error al insertar Empleado" });
