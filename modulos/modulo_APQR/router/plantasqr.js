@@ -10,7 +10,7 @@ plantaqr.get('/plantas', (req, res) => {
         if (err) {
             res.status(404).send({message: 'Recurso no  encontrado'});
         } else {
-            res.status(201).send({planta: result });  
+            res.status(201).send(result[0]);  
         }
     });
    });
@@ -21,7 +21,7 @@ plantaqr.get('/codigo_qr', (req, res) => {
         if (err) {
             res.status(404).send({message: 'Recurso no  encontrado'});
         } else {
-            res.status(201).send({codqr: result });  
+            res.status(201).send(result[0]);   
         }
     });
    });
@@ -36,7 +36,7 @@ plantaqr.get('/codigo_qr', (req, res) => {
          if(err){
            res.status(404).send({mensaje: "Error al consultar los datos"});
          }else{
-           res.status(201).send({resultado: result, mensaje: "Peticion Exitosa"});
+            res.status(201).send(result[0]);  
         }
        
           
@@ -51,7 +51,7 @@ plantaqr.get('/codigo_qr', (req, res) => {
         if(err){
            res.status(404).send({mensaje: "Error al consultar los datos"});
         }else{
-           res.status(201).send({resultado: result, mensaje: "Peticion Exitosa"});
+            res.status(201).send(result[0]);  
         }
     });
     });
